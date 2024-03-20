@@ -7,4 +7,12 @@
     <Nullable>enable</Nullable>
   </PropertyGroup>
 
+  <ItemGroup>
+    <Folder Include="Composite\" />
+    <Folder Include="Memento\" />
+    <Folder Include="Observer\" />
+    <Folder Include="Prototype\" />
+    <Folder Include="State\" />
+  </ItemGroup>
+
 </Project>
