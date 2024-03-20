@@ -6,10 +6,9 @@ using System.Threading.Tasks;
 
 namespace ConsoleApp1.State
 {
-    abstract class BranchState
+    public interface IState
     {
-        protected Branch _branch;
-     
-
+        public IState SetState();
+        public string GetTypeState();
     }
 }
