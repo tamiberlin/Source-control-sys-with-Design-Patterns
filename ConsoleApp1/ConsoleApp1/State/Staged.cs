@@ -6,7 +6,16 @@ using System.Threading.Tasks;
 
 namespace ConsoleApp1.State
 {
-    internal class Staged
+    internal class Staged : IState
     {
+        public string GetTypeState()
+        {
+            return "Staged";
+        }
+
+        public IState SetState()
+        {
+            return new Commited();
+        }
     }
 }
