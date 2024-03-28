@@ -7,13 +7,64 @@ using System.Threading.Tasks;
 
 namespace ConsoleApp1
 {
-    internal class Folder : Item
+    public class Folder : Component
     {
-        public List<Item> Items { get; set; }
-        public Folder() 
+        
+        private List<Component> _children {  get;  set; }
+
+        public Folder(string name):base(name) 
         {
-            Items = new List<Item>();
+            _children = new List<Component>();
+        } 
+        public override void Undo()
+        {
+            base.Undo();
+            if (base.Mementos.Count > 0)
+            {
+                var memento = this.Mementos.Pop().GetLastInitialState();
+                this._children = ((Folder)memento)._children;
+            }
         }
 
+        public override void Add(Component component)
+        {
+            if (! (component is Branch) ) {
+                this._children.Add(component);
+            }
+            throw new Exception("Can't contain a Branch");
+        }
+
+        public override Folder AddFolder(string name)
+        {
+            Folder folder1 = new Folder(name);
+            _children.Add(folder1);
+            return folder1;
+        }
+        public override MyFile AddFile(string name, string contancs)
+        {
+            MyFile file1 = new MyFile(name, contancs);
+            _children.Add(file1);
+            return file1;
+        }
+
+
+        public override string DoSomething()
+        {
+            int i = 0;
+            string result = "Branch(";
+
+            foreach (Component component in this._children)
+            {
+                result += component.DoSomething();
+                if (i != this._children.Count - 1)
+                {
+                    result += "+";
+                }
+                i++;
+            }
+
+            return result + ")";
+        }
+    
     }
 }

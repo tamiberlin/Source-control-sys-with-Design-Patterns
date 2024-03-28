@@ -15,7 +15,7 @@ namespace ConsoleApp1.State
 
         public IState SetState()
         {
-            return new UnderReview();
+            return new Marged();
         }
     }
 }

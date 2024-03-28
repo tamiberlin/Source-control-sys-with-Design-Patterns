@@ -7,16 +7,17 @@ using System.Threading.Tasks;
 
 namespace ConsoleApp1
 {
-    public class MyFile : Item
+    public class MyFile : Component
     {
-        public string Contants { get; set; }
-        public MyFile(string contants)
+        public string Contants { private get; set; }
+        public MyFile(string name,string contants) : base(name) 
         {
             Contants = contants;
         }
-        public override void DoSomething()
+    
+        public override string DoSomething()
         {
-            Console.WriteLine(this.Contants);
+            return this.Contants;
         }
         public override void Undo()
         {
@@ -24,9 +25,12 @@ namespace ConsoleApp1
             if (base.Mementos.Count > 0)
             {
                 var memento = this.Mementos.Pop().GetLastInitialState();
-                memento = (MyFile)memento;
-                this.Contants = memento.Contants;
+                this.Contants =  ((MyFile)memento).Contants;
             }
+        }
+        public override bool IsFolder()
+        {
+            return false;
         }
 
     }

@@ -15,7 +15,7 @@ namespace ConsoleApp1.State
 
         public IState SetState()
         {
-            return new ReadyToMarge();
+           throw new NotImplementedException();
         }
 
        

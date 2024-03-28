@@ -10,8 +10,8 @@ namespace ConsoleApp1.Memento
     {
         private string _name;
         private DateTime _date;
-        private Item _lastInitialState;
-        public ConcreteMemento(string name, Item lastInitialState)
+        private Component _lastInitialState;
+        public ConcreteMemento(string name, Component lastInitialState)
         {
             this._name = name;
             this._date = DateTime.Now;
@@ -23,7 +23,7 @@ namespace ConsoleApp1.Memento
             return this._date;
         }
 
-        public Item GetLastInitialState()
+        public Component GetLastInitialState()
         {
             return this._lastInitialState;
         }

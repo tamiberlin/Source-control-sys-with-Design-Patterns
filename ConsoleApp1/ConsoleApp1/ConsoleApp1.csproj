@@ -8,7 +8,12 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="Composite\" />
+    <Compile Remove="Composite\**" />
+    <EmbeddedResource Remove="Composite\**" />
+    <None Remove="Composite\**" />
+  </ItemGroup>
+
+  <ItemGroup>
     <Folder Include="Observer\" />
     <Folder Include="Prototype\" />
   </ItemGroup>

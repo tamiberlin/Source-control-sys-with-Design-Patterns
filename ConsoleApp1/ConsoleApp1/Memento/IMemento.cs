@@ -9,7 +9,7 @@ namespace ConsoleApp1.Memento
     public interface IMemento
     {
         string GetName();
-        Item GetLastInitialState();
+        Component GetLastInitialState();
         DateTime GetDate();
     }
 }

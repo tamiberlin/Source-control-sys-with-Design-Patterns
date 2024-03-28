@@ -15,7 +15,8 @@ namespace ConsoleApp1.State
 
         public IState SetState()
         {
-            return new Draft();
+
+            return new UnderReview();
         }
     }
 }
