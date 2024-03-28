@@ -9,7 +9,6 @@ namespace ConsoleApp1
 {
     internal class Branch
     {
-        private BranchState _state = null;
         public Branch() 
         { 
 

@@ -9,7 +9,6 @@
 
   <ItemGroup>
     <Folder Include="Composite\" />
-    <Folder Include="Memento\" />
     <Folder Include="Observer\" />
     <Folder Include="Prototype\" />
   </ItemGroup>

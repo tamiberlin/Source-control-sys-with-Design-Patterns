@@ -7,14 +7,13 @@ using System.Threading.Tasks;
 
 namespace ConsoleApp1
 {
-    internal class Folder:Item
+    internal class Folder : Item
     {
-       /* private IState _state = new Commited();
-        public override void ChangeState()
+        public List<Item> Items { get; set; }
+        public Folder() 
         {
-            Console.WriteLine($"I was {_state.GetTypeState()}");
-            _state = _state.SetState();
-            Console.WriteLine($"And now I {_state.GetTypeState()}");
-        }*/
+            Items = new List<Item>();
+        }
+
     }
 }
