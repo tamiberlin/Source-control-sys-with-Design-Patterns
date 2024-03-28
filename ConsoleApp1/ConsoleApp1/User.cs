@@ -27,5 +27,10 @@ namespace ConsoleApp1
         {
             Branchs.Remove(branch);
         }
+        public Branch CopyBranch(string Name)
+        {
+            Branch branch = Branchs.Find(x => x.Name == Name).DeepCopy();
+            return branch;
+        }
     }
 }

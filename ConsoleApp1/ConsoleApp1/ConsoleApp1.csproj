@@ -15,7 +15,6 @@
 
   <ItemGroup>
     <Folder Include="Observer\" />
-    <Folder Include="Prototype\" />
   </ItemGroup>
 
 </Project>

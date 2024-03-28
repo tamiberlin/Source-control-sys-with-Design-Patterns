@@ -1,7 +1,9 @@
-﻿using ConsoleApp1.State;
+﻿using ConsoleApp1.Memento;
+using ConsoleApp1.State;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -65,6 +67,22 @@ namespace ConsoleApp1
 
             return result + ")";
         }
-    
+        public Folder DeepCopy()
+        {
+           Folder result=new Folder(this.Name);
+            foreach (Component component in this._children)
+            {
+                if(component is MyFile) {
+                    MyFile file = (MyFile)this.MemberwiseClone();
+                    result.Add(file);
+                }
+                else
+                {
+                    ((Folder)component).DoSomething();
+                }
+            }
+            return result;
+        }
+
     }
 }
