@@ -17,8 +17,26 @@ namespace ConsoleApp1
             _children = new List<Component>();
         }
 
-        
+        public override string DoSomething()
+        {
+            int i = 0;
+            string result = "Branch(";
 
+            foreach (Component component in this._children)
+            {
+                result += component.DoSomething();
+                if (i != this._children.Count - 1)
+                {
+                    result += "+";
+                }
+                i++;
+            }
+
+            return result + ")";
+        }
+
+
+        #region override MEMENTO
         public override void Undo()
         {
             base.Undo();
@@ -28,11 +46,14 @@ namespace ConsoleApp1
                 this._children = ((Branch)memento)._children;
             }
         }
+        #endregion
 
+        #region override & add COMPOSITE
         public override void Add(Component component)
         {
             this._children.Add(component);
         }
+       
         public override Folder AddFolder(string name)
         {
             Folder folder1 = new Folder(name);
@@ -55,46 +76,24 @@ namespace ConsoleApp1
         {
             this._children.Remove(component);
         }
-        public override string DoSomething()
-        {
-            int i = 0;
-            string result = "Branch(";
-
-            foreach (Component component in this._children)
-            {
-                result += component.DoSomething();
-                if (i != this._children.Count - 1)
-                {
-                    result += "+";
-                }
-                i++;
-            }
-
-            return result + ")";
-        }
+        #endregion
+       
         #region Prototype 
-        public Branch DeepCopy()
+        public override Component DeepCopy()
         {
             int i = 0;
             Branch result = new Branch(this.Name);
-
+            result._state = this._state;
             foreach (Component component in this._children)
             {
-                if(component is MyFile)
-                {
-                    MyFile file = (MyFile)this.MemberwiseClone();
-                    result.Add(file);
-                }
-                else if (component is Folder)
-                {
-                    ((Folder)component).DoSomething();
-                }
-                else
-                {
-                    ((Branch)component).DoSomething();
-                }
+                result.Add(component.DeepCopy());
             }
             return result;
+        }
+        public Branch BrachCopy()
+        {
+            Branch branch = (Branch)this.DeepCopy();
+            return branch;
         }
         #endregion
 

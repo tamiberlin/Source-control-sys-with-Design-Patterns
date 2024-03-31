@@ -9,12 +9,11 @@
 
   <ItemGroup>
     <Compile Remove="Composite\**" />
+    <Compile Remove="Observer\**" />
     <EmbeddedResource Remove="Composite\**" />
+    <EmbeddedResource Remove="Observer\**" />
     <None Remove="Composite\**" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="Observer\" />
+    <None Remove="Observer\**" />
   </ItemGroup>
 
 </Project>

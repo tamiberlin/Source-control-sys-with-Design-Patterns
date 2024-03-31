@@ -16,10 +16,17 @@ namespace ConsoleApp1
         {
             Name = name;
         }
+        
+        public virtual string DoSomething()
+        {
+            return "";
+        }
+
 
         #region STATE
 
-        private IState _state = new Draft();
+        protected IState _state = new Draft();
+        
 
         protected virtual void ChangeState()
         {
@@ -32,6 +39,9 @@ namespace ConsoleApp1
             if (this._state is Draft)
             {
                 this.ChangeState();
+            } else
+            {
+                Console.WriteLine($"You can't Add you state is: {this._state.GetTypeState()}");
             }
         }
         public void GitCommit()
@@ -40,6 +50,10 @@ namespace ConsoleApp1
             {
                 this.ChangeState();
             }
+            else
+            {
+                Console.WriteLine($"You can't Commit you state is: {this._state.GetTypeState()}");
+            }
         }
         public void GitPush()
         {
@@ -47,6 +61,11 @@ namespace ConsoleApp1
             {
                 this.ChangeState();
             }
+            else
+            {
+                Console.WriteLine($"You can't push you state is: {this._state.GetTypeState()}");
+            }
+
         }
         public void GitMerge()
         {
@@ -54,12 +73,25 @@ namespace ConsoleApp1
             {
                 this.ChangeState();
             }
+            else
+            {
+                Console.WriteLine($"You can't merge you state is: {this._state.GetTypeState()}");
+            }
         }
+        public event Action? Datachanged;
+
         public void GitReview()
         {
+
             if (this._state is UnderReview)
             {
+                if (Datachanged != null)
+                    Datachanged();
                 this.ChangeState();
+            }
+            else
+            {
+                Console.WriteLine($"You can't review you state is: {this._state.GetTypeState}");
             }
         }
         #endregion
@@ -74,19 +106,23 @@ namespace ConsoleApp1
         public void Backup(string name)
         {
             Console.WriteLine("\nCaretaker: Saving Originator's state...");
-            this.Mementos.Push(new ConcreteMemento(name, this));
+            var temp = this.DeepCopy();
+            this.Mementos.Push(new ConcreteMemento(name, temp));
         }
         #endregion
 
         #region Undo
         public virtual void Undo()
         {
-            if (this.Mementos.Count != 0)
+            if (this.Mementos.Count > 0)
             {
                 var memento = this.Mementos.Pop().GetLastInitialState();
+          
                 this._state = memento._state;
             }
-               Console.WriteLine("no history");
+            else {
+                Console.WriteLine("no history");
+            }
         }
         #endregion
 
@@ -128,15 +164,12 @@ namespace ConsoleApp1
         }
         #endregion
 
-        public virtual string DoSomething()
+        #region PROTOTYPE
+        public virtual Component DeepCopy()
         {
-            return "";
+            throw new NotImplementedException();
         }
+        #endregion
 
-        public Component()
-        {
-            
-        }
-        
     }
 }

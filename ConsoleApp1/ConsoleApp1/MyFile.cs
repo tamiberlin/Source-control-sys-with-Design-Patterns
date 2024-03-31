@@ -14,24 +14,24 @@ namespace ConsoleApp1
         {
             Contants = contants;
         }
-    
         public override string DoSomething()
         {
             return this.Contants;
-        }
-        public override void Undo()
-        {
-            base.Undo();
-            if (base.Mementos.Count > 0)
-            {
-                var memento = this.Mementos.Pop().GetLastInitialState();
-                this.Contants =  ((MyFile)memento).Contants;
-            }
         }
         public override bool IsFolder()
         {
             return false;
         }
+
+        #region override & add COMPOSITE
+        public override Component DeepCopy()
+        {
+            MyFile file = (MyFile)this.MemberwiseClone();
+            file._state = this._state;
+            return file;
+        }
+        #endregion
+       
 
     }
 }

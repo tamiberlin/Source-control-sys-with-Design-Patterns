@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.InteropServices.JavaScript;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -21,6 +22,7 @@ namespace ConsoleApp1
         {
             Branch branch1 = new Branch(Name);
             Branchs.Add(branch1);
+            branch1.Datachanged += ConfirmAReview;
             return branch1;
         }
         public void RenoveBranch(Branch branch)
@@ -29,8 +31,12 @@ namespace ConsoleApp1
         }
         public Branch CopyBranch(string Name)
         {
-            Branch branch = Branchs.Find(x => x.Name == Name).DeepCopy();
-            return branch;
+            Component branch = Branchs.Find(x => x.Name == Name).DeepCopy();
+            return (Branch)branch;
+        }
+        public void ConfirmAReview()
+        {
+            Console.WriteLine($"hello {this.Name} your branch is being reviewd");
         }
     }
 }
